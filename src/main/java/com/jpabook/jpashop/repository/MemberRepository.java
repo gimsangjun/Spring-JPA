@@ -16,8 +16,12 @@ public class MemberRepository {
     // @PersistenceContext, 요즘은 @RequiredArgsConstructor을 씀.
     private final EntityManager em;
 
-    public void save(Member member){
+    // 사이드이펙트를 일으키는 커멘드성이기때문에 웬만하면 저장할때는 리턴하지는 않는다.
+    // 그래서 id정도만 리턴한다. member객체 그자체를 리턴하는것보다
+    public Long save(Member member){
+
         em.persist(member);
+        return member.getId();
     }
 
     public Member findOne(Long id){
